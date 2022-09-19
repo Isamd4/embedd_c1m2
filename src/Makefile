@@ -61,7 +61,8 @@ PREFLS:=$(SOURCES:.c=.i)
 %.i:%.c
 	$(CC) $(CPPFLAGs) $(INCLUDES) -D$(PLATFORM) -E -o $@ $<
 %.asm:%.c
-	$(CC) $(CPPFLAGs) $(INCLUDES) -D$(PLATFORM) -S -o $@ $<
+	$(CC) $(CPPFLAGs) $(INCLUDES) -D$(PLATFORM) -S -o $@  $<
+	
 %.d:%.c
 	$(CC) $(CPPFLAGs) $(INCLUDES) -D$(PLATFORM) -M -o $@ $<
 %.o:%.c
@@ -74,6 +75,7 @@ build:all
 all:$(TARGET)
 $(TARGET):$(OBJS) 
 	$(CC)  $(CFLAGS) $(LDFLAGS) -o $@ $^ 
+	size $(TARGET)
 .PHONY:clean
 clean:
 	rm -f $(OBJS) $(TARGET) $(BASENAME).map $() $(PREFLS) $(ASMFLS) $(DEPFLS) 
